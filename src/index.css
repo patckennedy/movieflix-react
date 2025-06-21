@@ -1,1 +1,22 @@
 @import 'tailwindcss';
+
+* {
+    box-sizing: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 40px;
+    background-color: #151515;
+    color: #fff;
+    font-family: 'Franklin Gothic Medium', Arial;
+}
+
+
+h2 {
+  color: #f3f3f3;
+  text-align:center;
+  margin-bottom: 30px;
+  font-size: 48px;
+}

@@ -1,11 +1,12 @@
 import React from 'react';
+import './index.css';
 
 const App = () => {
     return (
         <>
             <div>
-                <div className="container bg-amber-300 mx-auto">
-                    <h1 className="text-6xl">Coding is easy</h1>
+                <div>
+                    <h2>CODING</h2>
                 </div>
             </div>
         </>
