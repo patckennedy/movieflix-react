@@ -1,11 +1,36 @@
 import React from 'react';
 import './index.css';
 import Search from './components/search';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+const API_BASE_URL = 'https://api.themoviedb.org/3';
+
+const API_KEY = import.meta.env.VITE_TMDB_APT_KEY;
+
+const API_OPTIONS = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${API_KEY}`,
+    },
+};
 
 // Main App Component
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const fetchMovies = async () => {
+        try {
+        } catch (error) {
+            console.error(`Error fetching movies: ${error}`);
+            setErrorMessage('Error fetching movies. Please try again later.');
+        }
+    };
+
+    // useEffect - API - Application Programming Interface -> a set of rules that allows one software application to talk to another
+    useEffect(() => {}, []);
 
     return (
         <>
@@ -28,6 +53,7 @@ const App = () => {
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
                     />
+                    {/* <h1 className='text-white'>{searchTerm}</h1> */}
                 </div>
             </main>
         </>
