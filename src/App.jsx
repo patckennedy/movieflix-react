@@ -23,6 +23,13 @@ const App = () => {
 
     const fetchMovies = async () => {
         try {
+            const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+
+            const response = await fetch(endpoint, API_OPTIONS);
+
+            // alert(response);
+
+            // start here //////////////////////////////////////?????????????
         } catch (error) {
             console.error(`Error fetching movies: ${error}`);
             setErrorMessage('Error fetching movies. Please try again later.');
@@ -30,7 +37,9 @@ const App = () => {
     };
 
     // useEffect - API - Application Programming Interface -> a set of rules that allows one software application to talk to another
-    useEffect(() => {}, []);
+    useEffect(() => {
+        fetchMovies();
+    }, []);
 
     return (
         <>
@@ -52,7 +61,13 @@ const App = () => {
                         />
                     </header>
 
-                    {/* <h1 className='text-white'>{searchTerm}</h1> */}
+                    {/* Movies display */}
+                    <section className="all-movie">
+                        <h2>All Movies</h2>
+                        {errorMessage && (
+                            <p className="text-red-500">{errorMessage}</p>
+                        )}
+                    </section>
                 </div>
             </main>
         </>
