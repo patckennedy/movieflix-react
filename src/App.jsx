@@ -39,20 +39,19 @@ const App = () => {
                 <div className="wrapper">
                     <header>
                         <img src="./hero.png" alt="Hero Banner" />
-                        {/* <h1>
-                            Find <span className="text-gradient">Movies</span>{' '}
-                            You'll Enjoy Without the Hassle
-                        </h1> */}
+
                         <h1>
                             Find <span className="text-gradient">Movies</span>
-                            You Will Enjoy With the Hassle
+                            You Will Enjoy Without the Hassle
                         </h1>
+
+                        {/* Search component */}
+                        <Search
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                        />
                     </header>
-                    {/* Search component */}
-                    <Search
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                    />
+
                     {/* <h1 className='text-white'>{searchTerm}</h1> */}
                 </div>
             </main>
