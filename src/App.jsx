@@ -20,7 +20,7 @@ const API_OPTIONS = {
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [movieList, setMovieList] = useState('');
+    const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchMovies = async () => {
@@ -34,7 +34,6 @@ const App = () => {
 
             // alert(response);
 
-            // start here //////////////////////////////////////?????????????
             if (!response.ok) {
                 throw new Error('Failed to fetch movies');
             }
@@ -58,7 +57,7 @@ const App = () => {
         }
     };
 
-    // useEffect - API - Application Programming Interface -> a set of rules that allows one software application to talk to another
+    // useEffect -
     useEffect(() => {
         fetchMovies();
     }, []);
@@ -86,8 +85,19 @@ const App = () => {
                     {/* Movies display */}
                     <section className="all-movie">
                         <h2>All Movies</h2>
-                        {errorMessage && (
+                        {/* {errorMessage && (
                             <p className="text-red-500">{errorMessage}</p>
+                        )} */}
+                        {isLoading ? (
+                            <p className="text-white">Loading ...</p>
+                        ) : errorMessage ? (
+                            <p className="text-red-500">{errorMessage}</p>
+                        ) : (
+                            <ul>
+                                {movieList.map((movie) => (
+                                    <p className="text-white">{movie.title}</p>
+                                ))}
+                            </ul>
                         )}
                     </section>
                 </div>
