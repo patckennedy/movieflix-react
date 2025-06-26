@@ -3,9 +3,10 @@ import './index.css';
 import Search from './components/search';
 import { useState, useEffect } from 'react';
 
+// API
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
-const API_KEY = import.meta.env.VITE_TMDB_APT_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const API_OPTIONS = {
     method: 'GET',
@@ -18,8 +19,9 @@ const API_OPTIONS = {
 // Main App Component
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
+    const [movieList, setMovieList] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchMovies = async () => {
         try {
@@ -30,6 +32,18 @@ const App = () => {
             // alert(response);
 
             // start here //////////////////////////////////////?????????????
+            if (!response.ok) {
+                throw new Error('Failed to fetch movies');
+            }
+
+            const data = await response.json();
+
+            // console.log(data);
+            if (data.Response == 'false') {
+                setErrorMessage(data.Error || 'Failed to fetch movies');
+            }
+
+            // Catch error if any
         } catch (error) {
             console.error(`Error fetching movies: ${error}`);
             setErrorMessage('Error fetching movies. Please try again later.');
