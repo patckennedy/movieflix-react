@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import Search from './components/search';
 import { useState, useEffect } from 'react';
+import Spinner from './components/spinner';
 
 // API
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -21,7 +22,7 @@ const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [movieList, setMovieList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchMovies = async () => {
         setIsLoading(true);
@@ -53,7 +54,7 @@ const App = () => {
             console.error(`Error fetching movies: ${error}`);
             setErrorMessage('Error fetching movies. Please try again later.');
         } finally {
-            setIsLoading(true);
+            setIsLoading(false);
         }
     };
 
@@ -84,16 +85,14 @@ const App = () => {
 
                     {/* Movies display */}
                     <section className="all-movie">
-                        <h2>All Movies</h2>
-                        {/* {errorMessage && (
-                            <p className="text-red-500">{errorMessage}</p>
-                        )} */}
+                        <h2 className="mt-[40px]">All Movies</h2>
+
                         {isLoading ? (
-                            <p className="text-white">Loading ...</p>
+                            <Spinner />
                         ) : errorMessage ? (
                             <p className="text-red-500">{errorMessage}</p>
                         ) : (
-                            <ul>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
                                 {movieList.map((movie) => (
                                     <p key={movie.id} className="text-white">
                                         {movie.title}
