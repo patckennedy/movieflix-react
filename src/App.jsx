@@ -4,6 +4,7 @@ import Search from './components/search';
 import { useState, useEffect } from 'react';
 import Spinner from './components/spinner';
 import MovieCard from './components/MovieCard';
+import { useDebounce } from 'react-use';
 
 // API
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -25,14 +26,29 @@ const App = () => {
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+
+
+    // Debounce the search term to prevent making too many API requests
+    // by waiting for the user to stop typing for 500ms
+    useDebounce(
+        () => {
+            fetchMovies(searchTerm);
+        },
+        500,
+        [searchTerm]
+    );
+      
+
     const fetchMovies = async (query = '') => {
         setIsLoading(true);
         setErrorMessage('');
 
         try {
             const endpoint = query
-             ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` :
-             `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+                ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(
+                      query
+                  )}`
+                : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
             const response = await fetch(endpoint, API_OPTIONS);
 
@@ -62,9 +78,10 @@ const App = () => {
     };
 
     // useEffect -
-    useEffect(() => {
-        fetchMovies(searchTerm);
-    }, [searchTerm]);
+    // useEffect(() => {
+    //     fetchMovies(debouncedSearchTerm);
+    // }, [debouncedSearchTerm]);
+      
 
     return (
         <>
