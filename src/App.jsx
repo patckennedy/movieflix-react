@@ -3,6 +3,7 @@ import './index.css';
 import Search from './components/search';
 import { useState, useEffect } from 'react';
 import Spinner from './components/spinner';
+import MovieCard from './components/MovieCard';
 
 // API
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -94,9 +95,7 @@ const App = () => {
                         ) : (
                             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
                                 {movieList.map((movie) => (
-                                    <p key={movie.id} className="text-white">
-                                        {movie.title}
-                                    </p>
+                                    <MovieCard key={movie.id} movie={movie} />
                                 ))}
                             </ul>
                         )}
