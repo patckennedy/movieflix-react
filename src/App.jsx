@@ -27,7 +27,6 @@ const App = () => {
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    
     // Debounce the search term to prevent making too many API requests
     // by waiting for the user to stop typing for 500ms
     useDebounce(
