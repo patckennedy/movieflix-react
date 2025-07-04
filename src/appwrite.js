@@ -11,6 +11,7 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
+    console.log('Updating search count for:', searchTerm, movie); // NEW
     try {
         // 1. Check if the searchTerm exists
         const result = await database.listDocuments(
@@ -18,6 +19,8 @@ export const updateSearchCount = async (searchTerm, movie) => {
             COLLECTION_ID,
             [Query.equal('searchTerm', searchTerm)]
         );
+
+        console.log('Documents found:', result.documents.length); // NEW
 
         if (result.documents.length > 0) {
             // 2. Update count
@@ -39,6 +42,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
                     poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                 }
             );
+            console.log('Document created:', res); // NEW
         }
     } catch (error) {
         console.error('Appwrite error:', error);
