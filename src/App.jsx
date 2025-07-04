@@ -27,6 +27,7 @@ const App = () => {
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    
     // Debounce the search term to prevent making too many API requests
     // by waiting for the user to stop typing for 500ms
     useDebounce(
@@ -36,7 +37,7 @@ const App = () => {
         500,
         [searchTerm]
     );
-
+    /// -------------------------------------------------------------------------------------------------
     const fetchMovies = async (query = '') => {
         setIsLoading(true);
         setErrorMessage('');
@@ -67,7 +68,11 @@ const App = () => {
 
             setMovieList(data.results || []);
 
-            updateSearchCount();
+            // updateSearchCount();
+
+            if (query && data.results.length > 0) {
+                await updateSearchCount(query, data.results[0]);
+            }
 
             // Catch error if any
         } catch (error) {
@@ -77,12 +82,7 @@ const App = () => {
             setIsLoading(false);
         }
     };
-
-    // useEffect -
-    // useEffect(() => {
-    //     fetchMovies(debouncedSearchTerm);
-    // }, [debouncedSearchTerm]);
-
+    /// -------------------------------------------------------------------------------------------------
     return (
         <>
             <main>
